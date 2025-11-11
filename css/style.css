@@ -1,0 +1,117 @@
+
+body {
+  font-family: 'Poppins', sans-serif;
+  background-color: #f9f9f9;
+  color: #333;
+}
+
+
+.navbar-brand {
+  font-size: 1.5rem;
+  letter-spacing: 1px;
+}
+
+.navbar .nav-link {
+  color: #000 !important;
+  font-weight: 500;
+  margin: 0 8px;
+  transition: 0.3s ease;
+  position: relative;
+}
+
+.navbar .nav-link::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -5px;
+  width: 0%;
+  height: 2px;
+  background-color: #0d6efd;
+  transition: 0.3s;
+}
+
+.navbar .nav-link:hover::after,
+.navbar .nav-link.active::after {
+  width: 100%;
+}
+
+.navbar .nav-link:hover {
+  color: #0d6efd !important;
+}
+
+
+section.bg-light.py-5.text-center {
+  background: linear-gradient(to right, #e3f2fd, #f8f9fa);
+}
+
+
+.card {
+  transition: all 0.3s ease;
+  border-radius: 10px;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.08);
+}
+
+.card img {
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+}
+
+.card .btn {
+  border-radius: 20px;
+  font-weight: 500;
+}
+
+
+.btn-primary {
+  background-color: #0d6efd;
+  border: none;
+  transition: 0.3s;
+}
+
+.btn-primary:hover {
+  background-color: #084298;
+}
+
+.btn-outline-primary:hover {
+  background-color: #0d6efd;
+  color: #fff;
+}
+
+footer {
+  background-color: #111;
+  color: #ccc;
+}
+
+footer p {
+  font-size: 0.95rem;
+  letter-spacing: 0.5px;
+}
+
+
+table th {
+  font-weight: 600;
+}
+
+table td img {
+  border-radius: 8px;
+}
+
+
+.form-control,
+textarea {
+  border-radius: 8px;
+  border-color: #ddd;
+}
+
+.form-control:focus {
+  box-shadow: none;
+  border-color: #0d6efd;
+}
+
+textarea {
+  resize: none;
+}
