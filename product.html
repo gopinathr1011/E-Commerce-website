@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Product Details</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg navbar-light bg-light shadow-sm sticky-top">
+    <div class="container">
+      <a class="navbar-brand fw-bold text-primary" href="index.html">
+        <img src="img/logo.jpeg" width="100" height="100" class="me-2 rounded-circle">
+      </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+          <li class="nav-item"><a class="nav-link" href="products.html">Products</a></li>
+          <li class="nav-item"><a class="nav-link" href="cart.html">Cart</a></li>
+          <li class="nav-item"><a class="nav-link" href="checkout.html">Checkout</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ✅ Product Details Section -->
+  <section class="py-5">
+    <div class="container">
+      <div class="row g-4 align-items-center">
+        <div class="col-md-6 text-center">
+          <img id="product-img" class="img-fluid rounded shadow-sm" style="max-height: 400px;" alt="Product Image">
+        </div>
+        <div class="col-md-6">
+          <h2 id="product-name" class="fw-bold mb-3"></h2>
+          <p id="product-category" class="text-muted"></p>
+          <h4 id="product-price" class="text-primary mb-3"></h4>
+          <p id="product-description" class="text-secondary"></p>
+
+          <div class="d-flex align-items-center mb-3">
+            <label for="qty" class="me-2 fw-semibold">Quantity:</label>
+            <input type="number" id="qty" value="1" class="form-control w-25">
+          </div>
+
+          <button id="addToCart" class="btn btn-primary btn-lg me-2">Add to Cart</button>
+          <button id="buyNow" class="btn btn-outline-dark btn-lg">Buy Now</button>
+
+          <ul class="list-unstyled mt-4">
+            <li>✅ 1-Year Warranty</li>
+            <li>🚚 Free Delivery within 3-5 days</li>
+            <li>🔒 Secure Payment Options</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+
+  const filterButtons = document.querySelectorAll(".filter-btn");
+  const allProducts = document.querySelectorAll(".card");
+
+  filterButtons.forEach((btn) => {
+    btn.addEventListener("click", () => {
+      filterButtons.forEach((b) => b.classList.remove("active"));
+      btn.classList.add("active");
+
+      const category = btn.dataset.category;
+
+      if (category === "home") {
+        window.location.href = "index.html";
+        return;
+      }
+
+      if (category === "all") {
+        allProducts.forEach((product) => (product.parentElement.style.display = "block"));
+      } else {
+        let count = 0;
+        allProducts.forEach((product) => {
+          const productCategory = product.dataset.category;
+          if (productCategory === category && count < 10) {
+            product.parentElement.style.display = "block";
+            count++;
+          } else {
+            product.parentElement.style.display = "none";
+          }
+        });
+      }
+    });
+  });
+
+  const viewButtons = document.querySelectorAll(".view-btn");
+  viewButtons.forEach((btn) => {
+    btn.addEventListener("click", (e) => {
+      const card = e.target.closest(".card");
+
+      const product = {
+        id: card.dataset.id,
+        name: card.dataset.name,
+        price: card.dataset.price,
+        image: card.dataset.image,
+        category: card.dataset.category,
+        description: card.dataset.description
+      };
+
+      localStorage.setItem("selectedProduct", JSON.stringify(product));
+
+      window.location.href = "product.html";
+    });
+  });
+});
+  </script>
+  <section class="py-5">
+    <div class="container">
+      <h2 class="text-center fw-bold mb-4 text-dark">Featured Products</h2>
+      <div class="row g-4">
+
+        <div class="container py-3">
+      <div class="row g-4">
+
+        <div class="col-md-4">
+        <div class="card border-0 shadow-sm h-100"
+       data-id="1"
+       data-name="Belt"
+       data-price="599"
+       data-image="img/a5.jpg"
+       data-category="accessories"
+       data-description="Classic leather belt.">
+
+    <img src="img/a5.jpg" class="card-img-top" alt="Product 1">
+    <div class="card-body text-center">
+      <h6 class="fw-bold">Belt</h6>
+      <p class="text-muted small mb-2">₹599</p>
+      <button class="btn btn-primary btn-sm view-btn">View Details</button>
+    </div>
+  </div>
+</div>
+
+        <div class="col-md-4">
+        <div class="card border-0 shadow-sm h-100"
+       data-id="1"
+       data-name="Sunglasses"
+       data-price="799"
+       data-image="img/a1.jpg"
+       data-category="accessories"
+       data-description="UV protected stylish shades.">
+
+    <img src="img/a1.jpg" class="card-img-top" alt="Product 1">
+    <div class="card-body text-center">
+      <h6 class="fw-bold">Sunglasses</h6>
+      <p class="text-muted small mb-2">₹799</p>
+      <button class="btn btn-primary btn-sm view-btn">View Details</button>
+    </div>
+  </div>
+</div>
+
+         <div class="col-md-4">
+        <div class="card border-0 shadow-sm h-100"
+       data-id="1"
+       data-name="Sneakers"
+       data-price="1999"
+       data-image="img/f4.jpg"
+       data-category="fashion"
+       data-description="Lightweight sneakers for daily wear.">
+
+    <img src="img/f4.jpg" class="card-img-top" alt="Product 1">
+    <div class="card-body text-center">
+      <h6 class="fw-bold">Sneakers</h6>
+      <p class="text-muted small mb-2">₹1,999</p>
+      <button class="btn btn-primary btn-sm view-btn">View Details</button>
+    </div>
+  </div>
+</div>
+</div>
+
+    <div class="container py-3">
+      <div class="row g-4">
+
+       <div class="col-md-4">
+        <div class="card border-0 shadow-sm h-100"
+       data-id="1"
+       data-name="Power Bank"
+       data-price="1199"
+       data-image="img/p10.jpg"
+       data-category="electronics"
+       data-description="10000mAh fast charging.">
+
+    <img src="img/p10.jpg" class="card-img-top" alt="Product 1">
+    <div class="card-body text-center">
+      <h6 class="fw-bold">Power Bank</h6>
+      <p class="text-muted small mb-2">₹1,199</p>
+      <button class="btn btn-primary btn-sm view-btn">View Details</button>
+    </div>
+  </div>
+</div>
+
+        <div class="col-md-4 ">
+        <div class="card border-0 shadow-sm h-100"
+       data-id="1"
+       data-name="Cap"
+       data-price="499"
+       data-image="img/f7.jpeg"
+       data-category="fashion"
+       data-description="Stylish baseball cap.">
+
+    <img src="img/f7.jpeg" class="card-img-top" alt="Product 1">
+    <div class="card-body text-center">
+      <h6 class="fw-bold">Cap</h6>
+      <p class="text-muted small mb-2">₹499</p>
+      <button class="btn btn-primary btn-sm view-btn">View Details</button>
+    </div>
+  </div>
+</div>
+
+        <div class="col-md-4 ">
+        <div class="card border-0 shadow-sm h-100"
+       data-id="1"
+       data-name="Backpack"
+       data-price="1499"
+       data-image="img/a3.jpg"
+       data-category="accessories"
+       data-description="Durable backpack for travel.">
+
+    <img src="img/a3.jpg" class="card-img-top" alt="Product 1">
+    <div class="card-body text-center">
+      <h6 class="fw-bold">Backpack</h6>
+      <p class="text-muted small mb-2">₹1,499</p>
+      <button class="btn btn-primary btn-sm view-btn">View Details</button>
+    </div>
+  </div>
+      </div>
+    </div>
+  </section>
+
+   <footer class="bg-dark text-light pt-5 pb-4">
+  <div class="container text-center text-md-start">
+    <div class="row text-center text-md-start">
+      
+      <div class="col-md-3 col-lg-3 col-xl-3 mx-auto mt-3">
+        <h5 class="text-uppercase mb-4 fw-bold text-info">SG Shop</h5>
+        <p>
+          SG Shop is online store for electronics, fashion and accessories products. We bring you quality items at affordable prices.
+        </p>
+      </div>
+
+      <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mt-3">
+        <h5 class="text-uppercase mb-4 fw-bold text-info">Quick Links</h5>
+        <p><a href="index.html" class="text-light text-decoration-none">Home</a></p>
+        <p><a href="products.html" class="text-light text-decoration-none">Products</a></p>
+        <p><a href="cart.html" class="text-light text-decoration-none">Cart</a></p>
+        <p><a href="checkout.html" class="text-light text-decoration-none">Checkout</a></p>
+      </div>
+
+      <div class="col-md-3 col-lg-2 col-xl-2 mx-auto mt-3">
+        <h5 class="text-uppercase mb-4 fw-bold text-info">Categories</h5>
+        <p><a href="products.html" class="text-light text-decoration-none">Electronics</a></p>
+        <p><a href="products.html" class="text-light text-decoration-none">Fashion</a></p>
+        <p><a href="products.html" class="text-light text-decoration-none">Accessories</a></p>
+      </div>
+
+      <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mt-3">
+        <h5 class="text-uppercase mb-4 fw-bold text-info">Contact</h5>
+        <p><i class="bi bi-house-door me-2"></i> Thanjavur, Tamil Nadu</p>
+        <p><i class="bi bi-email me-2"></i>gopinathr1011@gmail.com</p>
+        <p><i class="bi bi-phone me-2"></i> +91 9629235980</p>
+      </div>
+    </div>
+
+    <hr class="mb-4 mt-4 text-light">
+
+    <div class="row align-items-center">
+      <div class="col-md-7 col-lg-8">
+        <p class="mb-0">
+          © 2025 <strong class="text-info">SG Shop</strong>. All Rights Reserved.
+        </p>
+      </div>
+      <div class="col-md-5 col-lg-4 text-center text-md-end">
+        <a href="https://www.facebook.com/" class="text-light me-3"><i class="bi bi-facebook fs-5"></i></a>
+        <a href="https://www.instagram.com/" class="text-light me-3"><i class="bi bi-instagram fs-5"></i></a>
+        <a href="https://www.x.com/" class="text-light me-3"><i class="bi bi-twitter fs-5"></i></a>
+        <a href="https://www.whatsapp.com/" class="text-light"><i class="bi bi-whatsapp fs-5"></i></a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+ <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+  <script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const product = JSON.parse(localStorage.getItem("selectedProduct"));
+    if (!product) {
+      alert("No product selected!");
+      return;
+    }
+
+    document.getElementById("product-img").src = product.image;
+    document.getElementById("product-name").textContent = product.name;
+    document.getElementById("product-price").textContent = "₹" + product.price;
+    document.getElementById("product-category").textContent = "Category: " + product.category;
+    document.getElementById("product-description").textContent = product.description;
+
+    document.getElementById("addToCart").addEventListener("click", () => {
+      let cart = JSON.parse(localStorage.getItem("cart")) || [];
+      const exists = cart.some(item => item.id === product.id && item.name === product.name);
+      if (exists) {
+        alert("Item already in cart!");
+        return;
+      }
+      cart.push(product);
+      localStorage.setItem("cart", JSON.stringify(cart));
+      alert("Added to cart!");
+    });
+
+    document.getElementById("buyNow").addEventListener("click", () => {
+      localStorage.setItem("checkoutProduct", JSON.stringify([product]));
+      window.location.href = "checkout.html";
+    });
+  });
+document.getElementById("buyNow").addEventListener("click", () => {
+  const product = {
+    name: document.getElementById("product-name").textContent,
+    price: parseFloat(document.getElementById("product-price").textContent.replace(/[^0-9.]/g, "")),
+    image: document.getElementById("product-img").src,
+    category: "Electronics",
+    quantity: 1
+  };
+
+  localStorage.setItem("buyNowItem", JSON.stringify(product));
+
+  window.location.href = "checkout.html";
+});
+  </script>
+
+</body>
+</html>

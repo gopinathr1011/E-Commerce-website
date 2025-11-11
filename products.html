@@ -1,0 +1,753 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Shop</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+  <script>
+document.addEventListener("DOMContentLoaded", () => {
+  
+  const filterButtons = document.querySelectorAll(".filter-btn");
+  const allProducts = document.querySelectorAll(".card");
+
+  filterButtons.forEach((btn) => {
+    btn.addEventListener("click", () => {
+      filterButtons.forEach((b) => b.classList.remove("active"));
+      btn.classList.add("active");
+
+      const category = btn.dataset.category;
+
+      if (category === "home") {
+        window.location.href = "index.html";
+        return;
+      }
+
+      if (category === "all") {
+        allProducts.forEach((product) => (product.parentElement.style.display = "block"));
+      } else {
+        let count = 0;
+        allProducts.forEach((product) => {
+          const productCategory = product.dataset.category;
+          if (productCategory === category && count < 10) {
+            product.parentElement.style.display = "block";
+            count++;
+          } else {
+            product.parentElement.style.display = "none";
+          }
+        });
+      }
+    });
+  });
+
+  const viewButtons = document.querySelectorAll(".view-btn");
+  viewButtons.forEach((btn) => {
+    btn.addEventListener("click", (e) => {
+      const card = e.target.closest(".card");
+
+      const product = {
+        id: card.dataset.id,
+        name: card.dataset.name,
+        price: card.dataset.price,
+        image: card.dataset.image,
+        category: card.dataset.category,
+        description: card.dataset.description
+      };
+
+      localStorage.setItem("selectedProduct", JSON.stringify(product));
+
+      window.location.href = "product.html";
+    });
+  });
+});
+  </script>
+</head>
+<body>
+      <style>
+    .card {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.card img {
+  height: 250px;
+  object-fit: cover;
+  border-top-left-radius: 0.5rem;
+  border-top-right-radius: 0.5rem;
+}
+
+.card-body {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+  </style>
+  <nav class="navbar navbar-expand-lg navbar-light bg-light shadow-sm sticky-top">
+    <div class="container">
+      <a class="navbar-brand fw-bold text-primary" href="index.html">
+        <img src="img/logo.jpeg" width="100" height="100" class="me-2 rounded-circle">
+      </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+          <li class="nav-item"><a class="nav-link active" href="products.html">Products</a></li>
+          <li class="nav-item"><a class="nav-link" href="cart.html">Cart</a></li>
+          <li class="nav-item"><a class="nav-link" href="checkout.html">Checkout</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <header class="bg-primary text-white text-center py-5">
+    <h1 class="fw-bold">Explore Our Products</h1>
+    <p class="lead">Find your perfect item from our wide collection</p>
+  </header>
+
+ <div class="container text-center my-4">
+      <div class="btn-group" role="group">
+        <button class="btn btn-outline-primary active filter-btn" data-category="all">All</button>
+        <button class="btn btn-outline-primary filter-btn" data-category="electronics">Electronics</button>
+        <button class="btn btn-outline-primary filter-btn" data-category="fashion">Fashion</button>
+        <button class="btn btn-outline-primary filter-btn" data-category="accessories">Accessories</button>
+        <button class="btn btn-outline-primary filter-btn" data-category="home">Home</button>
+      </div>
+    </div>
+
+  <section class="py-5">
+    <div class="container">
+      <div class="row g-4">      
+
+ <div class="col-sm-6 col-md-4 col-lg-3">
+        <div class="card border-0 shadow-sm h-100"
+       data-id="1"
+       data-name="Sunglasses"
+       data-price="799"
+       data-image="img/a1.jpg"
+       data-category="accessories"
+       data-description="UV protected stylish shades.">
+
+    <img src="img/a1.jpg" class="card-img-top" alt="Product 1">
+    <div class="card-body text-center">
+      <h6 class="fw-bold">Sunglasses</h6>
+      <p class="text-muted small mb-2">₹799</p>
+      <button class="btn btn-primary btn-sm view-btn">View Details</button>
+    </div>
+  </div>
+</div>
+
+ <div class="col-sm-6 col-md-4 col-lg-3">
+        <div class="card border-0 shadow-sm h-100"
+       data-id="1"
+       data-name="Ring"
+       data-price="999"
+       data-image="img/a2.jpg"
+       data-category="accessories"
+       data-description="Premium meterial ring.">
+
+    <img src="img/a2.jpg" class="card-img-top" alt="Product 1">
+    <div class="card-body text-center">
+      <h6 class="fw-bold">Ring</h6>
+      <p class="text-muted small mb-2">₹999</p>
+      <button class="btn btn-primary btn-sm view-btn">View Details</button>
+    </div>
+  </div>
+</div>
+
+ <div class="col-sm-6 col-md-4 col-lg-3">
+        <div class="card border-0 shadow-sm h-100"
+       data-id="1"
+       data-name="Backpack"
+       data-price="1499"
+       data-image="img/a3.jpg"
+       data-category="accessories"
+       data-description="Durable backpack for travel.">
+
+    <img src="img/a3.jpg" class="card-img-top" alt="Product 1">
+    <div class="card-body text-center">
+      <h6 class="fw-bold">Backpack</h6>
+      <p class="text-muted small mb-2">₹1,499</p>
+      <button class="btn btn-primary btn-sm view-btn">View Details</button>
+    </div>
+  </div>
+
+</div> <div class="col-sm-6 col-md-4 col-lg-3">
+        <div class="card border-0 shadow-sm h-100"
+       data-id="1"
+       data-name="Bracelet"
+       data-price="699"
+       data-image="img/a4.jpg"
+       data-category="accessories"
+       data-description="Elegant wrist bracelet.">
+
+    <img src="img/a4.jpg" class="card-img-top" alt="Product 1">
+    <div class="card-body text-center">
+      <h6 class="fw-bold">Bracelet</h6>
+      <p class="text-muted small mb-2">₹699</p>
+      <button class="btn btn-primary btn-sm view-btn">View Details</button>
+    </div>
+  </div>
+</div>
+
+ <div class="col-sm-6 col-md-4 col-lg-3">
+        <div class="card border-0 shadow-sm h-100"
+       data-id="1"
+       data-name="Belt"
+       data-price="599"
+       data-image="img/a5.jpg"
+       data-category="accessories"
+       data-description="Classic leather belt.">
+
+    <img src="img/a5.jpg" class="card-img-top" alt="Product 1">
+    <div class="card-body text-center">
+      <h6 class="fw-bold">Belt</h6>
+      <p class="text-muted small mb-2">₹599</p>
+      <button class="btn btn-primary btn-sm view-btn">View Details</button>
+    </div>
+  </div>
+</div>
+
+ <div class="col-sm-6 col-md-4 col-lg-3">
+        <div class="card border-0 shadow-sm h-100"
+       data-id="1"
+       data-name="Hat"
+       data-price="499"
+       data-image="img/a6.jpg"
+       data-category="accessories"
+       data-description="Summer beach hat.">
+
+    <img src="img/a6.jpg" class="card-img-top" alt="Product 1">
+    <div class="card-body text-center">
+      <h6 class="fw-bold">Hat</h6>
+      <p class="text-muted small mb-2">₹499</p>
+      <button class="btn btn-primary btn-sm view-btn">View Details</button>
+    </div>
+  </div>
+</div>
+
+ <div class="col-sm-6 col-md-4 col-lg-3">
+        <div class="card border-0 shadow-sm h-100"
+       data-id="1"
+       data-name="Necklace"
+       data-price="899"
+       data-image="img/a7.jpg"
+       data-category="accessories"
+       data-description="Stylish silver necklace.">
+
+    <img src="img/a7.jpg" class="card-img-top" alt="Product 1">
+    <div class="card-body text-center">
+      <h6 class="fw-bold">Necklace</h6>
+      <p class="text-muted small mb-2">₹899</p>
+      <button class="btn btn-primary btn-sm view-btn">View Details</button>
+    </div>
+  </div>
+</div>
+
+ <div class="col-sm-6 col-md-4 col-lg-3">
+        <div class="card border-0 shadow-sm h-100"
+       data-id="1"
+       data-name="Earrings"
+       data-price="499"
+       data-image="img/a8.jpg"
+       data-category="accessories"
+       data-description="Beautiful pearl earrings.">
+
+    <img src="img/a8.jpg" class="card-img-top" alt="Product 1">
+    <div class="card-body text-center">
+      <h6 class="fw-bold">Earrings</h6>
+      <p class="text-muted small mb-2">₹499</p>
+      <button class="btn btn-primary btn-sm view-btn">View Details</button>
+    </div>
+  </div>
+</div>
+
+ <div class="col-sm-6 col-md-4 col-lg-3">
+        <div class="card border-0 shadow-sm h-100"
+       data-id="1"
+       data-name="Keychain"
+       data-price="299"
+       data-image="img/a9.jpg"
+       data-category="accessories"
+       data-description="Metal keychain pack.">
+
+    <img src="img/a9.jpg" class="card-img-top" alt="Product 1">
+    <div class="card-body text-center">
+      <h6 class="fw-bold">Keychain</h6>
+      <p class="text-muted small mb-2">₹299</p>
+      <button class="btn btn-primary btn-sm view-btn">View Details</button>
+    </div>
+  </div>
+</div>
+
+ <div class="col-sm-6 col-md-4 col-lg-3">
+        <div class="card border-0 shadow-sm h-100"
+       data-id="1"
+       data-name="Watch Strap"
+       data-price="499"
+       data-image="img/a10.jpg"
+       data-category="accessories"
+       data-description="Leather replacement strap.">
+
+    <img src="img/a10.jpg" class="card-img-top" alt="Product 1">
+    <div class="card-body text-center">
+      <h6 class="fw-bold">Watch Strap</h6>
+      <p class="text-muted small mb-2">₹499</p>
+      <button class="btn btn-primary btn-sm view-btn">View Details</button>
+    </div>
+  </div>
+</div>
+
+<!-- ele -->
+<div class="col-sm-6 col-md-4 col-lg-3">
+        <div class="card border-0 shadow-sm h-100"
+       data-id="1"
+       data-name="Smartphone X"
+       data-price="12999"
+       data-image="img/p1.jpg"
+       data-category="electronics"
+       data-description="Powerful smartphone with great camera.">
+
+    <img src="img/p1.jpg" class="card-img-top" alt="Product 1">
+    <div class="card-body text-center">
+      <h6 class="fw-bold">Smartphone X</h6>
+      <p class="text-muted small mb-2">₹12,999</p>
+      <button class="btn btn-primary btn-sm view-btn">View Details</button>
+    </div>
+  </div>
+</div>
+
+ <div class="col-sm-6 col-md-4 col-lg-3">
+        <div class="card border-0 shadow-sm h-100"
+       data-id="1"
+       data-name="Laptop Pro"
+       data-price="49999"
+       data-image="img/p2.jpg"
+       data-category="electronics"
+       data-description="Sleek laptop with fast performance.">
+
+    <img src="img/p2.jpg" class="card-img-top" alt="Product 1">
+    <div class="card-body text-center">
+      <h6 class="fw-bold">Laptop Pro</h6>
+      <p class="text-muted small mb-2">₹49,999</p>
+      <button class="btn btn-primary btn-sm view-btn">View Details</button>
+    </div>
+  </div>
+</div>
+
+ <div class="col-sm-6 col-md-4 col-lg-3">
+        <div class="card border-0 shadow-sm h-100"
+       data-id="1"
+       data-name="Smart Watch"
+       data-price="2999"
+       data-image="img/p3.jpg"
+       data-category="electronics"
+       data-description="Track fitness and notifications easily.">
+
+    <img src="img/p3.jpg" class="card-img-top" alt="Product 1">
+    <div class="card-body text-center">
+      <h6 class="fw-bold">Smart Watch</h6>
+      <p class="text-muted small mb-2">₹2,999</p>
+      <button class="btn btn-primary btn-sm view-btn">View Details</button>
+    </div>
+  </div>
+</div>
+
+ <div class="col-sm-6 col-md-4 col-lg-3">
+        <div class="card border-0 shadow-sm h-100"
+       data-id="1"
+       data-name="Bluetooth Speaker"
+       data-price="1999"
+       data-image="img/p4.jpg"
+       data-category="electronics"
+       data-description="Portable and powerful sound.">
+
+    <img src="img/p4.jpg" class="card-img-top" alt="Product 1">
+    <div class="card-body text-center">
+      <h6 class="fw-bold">Bluetooth Speaker</h6>
+      <p class="text-muted small mb-2">₹1,999</p>
+      <button class="btn btn-primary btn-sm view-btn">View Details</button>
+    </div>
+  </div>
+</div>
+
+ <div class="col-sm-6 col-md-4 col-lg-3">
+        <div class="card border-0 shadow-sm h-100"
+       data-id="1"
+       data-name="Wireless Earbuds"
+       data-price="1499"
+       data-image="img/p5.jpg"
+       data-category="electronics"
+       data-description="Crystal clear sound.">
+
+    <img src="img/p5.jpg" class="card-img-top" alt="Product 1">
+    <div class="card-body text-center">
+      <h6 class="fw-bold">Wireless Earbuds</h6>
+      <p class="text-muted small mb-2">₹1,499</p>
+      <button class="btn btn-primary btn-sm view-btn">View Details</button>
+    </div>
+  </div>
+</div>
+
+ <div class="col-sm-6 col-md-4 col-lg-3">
+        <div class="card border-0 shadow-sm h-100"
+       data-id="1"
+       data-name="Gaming Mouse"
+       data-price="899"
+       data-image="img/p6.jpg"
+       data-category="electronics"
+       data-description="RGB lighting and precision.">
+
+    <img src="img/p6.jpg" class="card-img-top" alt="Product 1">
+    <div class="card-body text-center">
+      <h6 class="fw-bold">Gaming Mouse</h6>
+      <p class="text-muted small mb-2">₹899</p>
+      <button class="btn btn-primary btn-sm view-btn">View Details</button>
+    </div>
+  </div>
+</div>
+
+ <div class="col-sm-6 col-md-4 col-lg-3">
+        <div class="card border-0 shadow-sm h-100"
+       data-id="1"
+       data-name="Tablet"
+       data-price="9999"
+       data-image="img/p7.jpg"
+       data-category="electronics"
+       data-description="Perfect for study and entertainment.">
+
+    <img src="img/p7.jpg" class="card-img-top" alt="Product 1">
+    <div class="card-body text-center">
+      <h6 class="fw-bold">Tablet</h6>
+      <p class="text-muted small mb-2">₹9,999</p>
+      <button class="btn btn-primary btn-sm view-btn">View Details</button>
+    </div>
+  </div>
+</div>
+
+ <div class="col-sm-6 col-md-4 col-lg-3">
+        <div class="card border-0 shadow-sm h-100"
+       data-id="1"
+       data-name="Camera Lens"
+       data-price="6999"
+       data-image="img/p8.jpg"
+       data-category="electronics"
+       data-description="High quality zoom lens.">
+
+    <img src="img/p8.jpg" class="card-img-top" alt="Product 1">
+    <div class="card-body text-center">
+      <h6 class="fw-bold">Camera Lens</h6>
+      <p class="text-muted small mb-2">₹6,999</p>
+      <button class="btn btn-primary btn-sm view-btn">View Details</button>
+    </div>
+  </div>
+</div>
+
+ <div class="col-sm-6 col-md-4 col-lg-3">
+        <div class="card border-0 shadow-sm h-100"
+       data-id="1"
+       data-name="Monitor"
+       data-price="7999"
+       data-image="img/p9.jpg"
+       data-category="electronics"
+       data-description="Full HD LED Display.">
+
+    <img src="img/p9.jpg" class="card-img-top" alt="Product 1">
+    <div class="card-body text-center">
+      <h6 class="fw-bold">Monitor</h6>
+      <p class="text-muted small mb-2">₹7,999</p>
+      <button class="btn btn-primary btn-sm view-btn">View Details</button>
+    </div>
+  </div>
+</div>
+
+ <div class="col-sm-6 col-md-4 col-lg-3">
+        <div class="card border-0 shadow-sm h-100"
+       data-id="1"
+       data-name="Power Bank"
+       data-price="1199"
+       data-image="img/p10.jpg"
+       data-category="electronics"
+       data-description="10000mAh fast charging.">
+
+    <img src="img/p10.jpg" class="card-img-top" alt="Product 1">
+    <div class="card-body text-center">
+      <h6 class="fw-bold">Power Bank</h6>
+      <p class="text-muted small mb-2">₹1,199</p>
+      <button class="btn btn-primary btn-sm view-btn">View Details</button>
+    </div>
+  </div>
+</div>
+
+<!-- fash -->
+ <div class="col-sm-6 col-md-4 col-lg-3">
+        <div class="card border-0 shadow-sm h-100"
+       data-id="1"
+       data-name="Casual Shirt"
+       data-price="999"
+       data-image="img/f1.jpg"
+       data-category="fashion"
+       data-description="Cotton shirt with stylish fit.">
+
+    <img src="img/f1.jpg" class="card-img-top" alt="Product 1">
+    <div class="card-body text-center">
+      <h6 class="fw-bold">Casual Shirt</h6>
+      <p class="text-muted small mb-2">₹999</p>
+      <button class="btn btn-primary btn-sm view-btn">View Details</button>
+    </div>
+  </div>
+</div>
+
+<div class="col-sm-6 col-md-4 col-lg-3">
+        <div class="card border-0 shadow-sm h-100"
+       data-id="1"
+       data-name="Jeans"
+       data-price="1499"
+       data-image="img/f2.jpg"
+       data-category="fashion"
+       data-description="Comfortable stretchable denim.">
+
+    <img src="img/f2.jpg" class="card-img-top" alt="Product 1">
+    <div class="card-body text-center">
+      <h6 class="fw-bold">Jeans</h6>
+      <p class="text-muted small mb-2">₹1,499</p>
+      <button class="btn btn-primary btn-sm view-btn">View Details</button>
+    </div>
+  </div>
+</div>
+
+ <div class="col-sm-6 col-md-4 col-lg-3">
+        <div class="card border-0 shadow-sm h-100"
+       data-id="1"
+       data-name="Jacket"
+       data-price="2599"
+       data-image="img/f3.jpg"
+       data-category="fashion"
+       data-description="Trendy winter jacket.">
+
+    <img src="img/f3.jpg" class="card-img-top" alt="Product 1">
+    <div class="card-body text-center">
+      <h6 class="fw-bold">Jacket</h6>
+      <p class="text-muted small mb-2">₹2,599</p>
+      <button class="btn btn-primary btn-sm view-btn">View Details</button>
+    </div>
+  </div>
+
+</div> <div class="col-sm-6 col-md-4 col-lg-3">
+        <div class="card border-0 shadow-sm h-100"
+       data-id="1"
+       data-name="Sneakers"
+       data-price="1999"
+       data-image="img/f4.jpg"
+       data-category="fashion"
+       data-description="Lightweight sneakers for daily wear.">
+
+    <img src="img/f4.jpg" class="card-img-top" alt="Product 1">
+    <div class="card-body text-center">
+      <h6 class="fw-bold">Sneakers</h6>
+      <p class="text-muted small mb-2">₹1,999</p>
+      <button class="btn btn-primary btn-sm view-btn">View Details</button>
+    </div>
+  </div>
+</div>
+
+ <div class="col-sm-6 col-md-4 col-lg-3">
+        <div class="card border-0 shadow-sm h-100"
+       data-id="1"
+       data-name="Saree"
+       data-price="2499"
+       data-image="img/f5.jpg"
+       data-category="fashion"
+       data-description="Beautiful silk saree.">
+
+    <img src="img/f5.jpg" class="card-img-top" alt="Product 1">
+    <div class="card-body text-center">
+      <h6 class="fw-bold">Saree</h6>
+      <p class="text-muted small mb-2">₹2,499</p>
+      <button class="btn btn-primary btn-sm view-btn">View Details</button>
+    </div>
+  </div>
+</div>
+
+ <div class="col-sm-6 col-md-4 col-lg-3">
+        <div class="card border-0 shadow-sm h-100"
+       data-id="1"
+       data-name="Kurta Set"
+       data-price="1899"
+       data-image="img/f6.jpeg"
+       data-category="fashion"
+       data-description="Traditional festive wear.">
+
+    <img src="img/f6.jpeg" class="card-img-top" alt="Product 1">
+    <div class="card-body text-center">
+      <h6 class="fw-bold">Kurta Set</h6>
+      <p class="text-muted small mb-2">₹1,899</p>
+      <button class="btn btn-primary btn-sm view-btn">View Details</button>
+    </div>
+  </div>
+</div>
+
+ <div class="col-sm-6 col-md-4 col-lg-3">
+        <div class="card border-0 shadow-sm h-100"
+       data-id="1"
+       data-name="Cap"
+       data-price="499"
+       data-image="img/f7.jpeg"
+       data-category="fashion"
+       data-description="Stylish baseball cap.">
+
+    <img src="img/f7.jpeg" class="card-img-top" alt="Product 1">
+    <div class="card-body text-center">
+      <h6 class="fw-bold">Cap</h6>
+      <p class="text-muted small mb-2">₹499</p>
+      <button class="btn btn-primary btn-sm view-btn">View Details</button>
+    </div>
+  </div>
+</div>
+
+ <div class="col-sm-6 col-md-4 col-lg-3">
+        <div class="card border-0 shadow-sm h-100"
+       data-id="1"
+       data-name="Wallet"
+       data-price="2999"
+       data-image="img/f8.jpg"
+       data-category="fashion"
+       data-description="Genuine leather wallet.">
+
+    <img src="img/f8.jpg" class="card-img-top" alt="Product 1">
+    <div class="card-body text-center">
+      <h6 class="fw-bold">Wallet</h6>
+      <p class="text-muted small mb-2">₹2,999</p>
+      <button class="btn btn-primary btn-sm view-btn">View Details</button>
+    </div>
+  </div>
+</div>
+
+ <div class="col-sm-6 col-md-4 col-lg-3">
+        <div class="card border-0 shadow-sm h-100"
+       data-id="1"
+       data-name="T-shirt"
+       data-price="799"
+       data-image="img/f9.jpg"
+       data-category="fashion"
+       data-description="Soft cotton round neck.">
+
+    <img src="img/f9.jpg" class="card-img-top" alt="Product 1">
+    <div class="card-body text-center">
+      <h6 class="fw-bold">T-shirt</h6>
+      <p class="text-muted small mb-2">₹799</p>
+      <button class="btn btn-primary btn-sm view-btn">View Details</button>
+    </div>
+  </div>
+</div>
+
+ <div class="col-sm-6 col-md-4 col-lg-3">
+        <div class="card border-0 shadow-sm h-100"
+       data-id="1"
+       data-name="Handbag"
+       data-price="1299"
+       data-image="img/f10.jpg"
+       data-category="fashion"
+       data-description="Premium leather handbag.">
+
+    <img src="img/f10.jpg" class="card-img-top" alt="Product 1">
+    <div class="card-body text-center">
+      <h6 class="fw-bold">Handbag</h6>
+      <p class="text-muted small mb-2">₹1,299</p>
+      <button class="btn btn-primary btn-sm view-btn">View Details</button>
+    </div>
+  </div>
+</div>
+  </section>
+
+
+    <footer class="bg-dark text-light pt-5 pb-4">
+  <div class="container text-center text-md-start">
+    <div class="row text-center text-md-start">
+      
+      <div class="col-md-3 col-lg-3 col-xl-3 mx-auto mt-3">
+        <h5 class="text-uppercase mb-4 fw-bold text-info">SG Shop</h5>
+        <p>
+          SG Shop is online store for electronics, fashion and accessories products. We bring you quality items at affordable prices.
+        </p>
+      </div>
+
+      <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mt-3">
+        <h5 class="text-uppercase mb-4 fw-bold text-info">Quick Links</h5>
+        <p><a href="index.html" class="text-light text-decoration-none">Home</a></p>
+        <p><a href="products.html" class="text-light text-decoration-none">Products</a></p>
+        <p><a href="cart.html" class="text-light text-decoration-none">Cart</a></p>
+        <p><a href="checkout.html" class="text-light text-decoration-none">Checkout</a></p>
+      </div>
+
+      <div class="col-md-3 col-lg-2 col-xl-2 mx-auto mt-3">
+        <h5 class="text-uppercase mb-4 fw-bold text-info">Categories</h5>
+        <p><a href="products.html" class="text-light text-decoration-none">Electronics</a></p>
+        <p><a href="products.html" class="text-light text-decoration-none">Fashion</a></p>
+        <p><a href="products.html" class="text-light text-decoration-none">Accessories</a></p>
+      </div>
+
+      <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mt-3">
+        <h5 class="text-uppercase mb-4 fw-bold text-info">Contact</h5>
+        <p><i class="bi bi-house-door me-2"></i> Thanjavur, Tamil Nadu</p>
+        <p><i class="bi bi-email me-2"></i>gopinathr1011@gmail.com</p>
+        <p><i class="bi bi-phone me-2"></i> +91 9629235980</p>
+      </div>
+    </div>
+
+    <hr class="mb-4 mt-4 text-light">
+
+    <div class="row align-items-center">
+      <div class="col-md-7 col-lg-8">
+        <p class="mb-0">
+          © 2025 <strong class="text-info">SG Shop</strong>. All Rights Reserved.
+        </p>
+      </div>
+      <div class="col-md-5 col-lg-4 text-center text-md-end">
+        <a href="https://www.facebook.com/" class="text-light me-3"><i class="bi bi-facebook fs-5"></i></a>
+        <a href="https://www.instagram.com/" class="text-light me-3"><i class="bi bi-instagram fs-5"></i></a>
+        <a href="https://www.x.com/" class="text-light me-3"><i class="bi bi-twitter fs-5"></i></a>
+        <a href="https://www.whatsapp.com/" class="text-light"><i class="bi bi-whatsapp fs-5"></i></a>
+      </div>
+    </div>
+  </div>
+</footer>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+document.addEventListener("DOMContentLoaded", () => {
+
+  const viewButtons = document.querySelectorAll(".view-btn");
+
+  viewButtons.forEach((btn) => {
+    btn.addEventListener("click", (e) => {
+      e.preventDefault();
+
+      const card = e.target.closest(".card");
+      if (!card) return;
+
+      const product = {
+        id: card.dataset.id,
+        name: card.dataset.name,
+        price: card.dataset.price,
+        image: card.dataset.image,
+        category: card.dataset.category,
+        description: card.dataset.description
+      };
+
+      console.log("Selected Product:", product);
+
+      localStorage.setItem("selectedProduct", JSON.stringify(product));
+
+      window.location.href = "product.html";
+    });
+  });
+});
+</script>
+</body>
+</html>
